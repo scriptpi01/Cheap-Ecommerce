@@ -1,0 +1,28 @@
+.registration-success-container {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 89vh;
+    text-align: center;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #4C9A2A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .button:hover {
+    background-color: #367A22;
+  }
+
+.registration-text{
+  font-size: 20px;
+}
+  
