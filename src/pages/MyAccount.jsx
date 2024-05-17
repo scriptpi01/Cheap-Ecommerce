@@ -26,17 +26,14 @@ const MyAccount = () => {
         const fetchUserInfo = async () => {
             if (user) {
                 try {
-                    console.log("Fetching user info for UID:", user.uid);
                     const userRef = doc(db, "Users", user.uid);
                     const userDoc = await getDoc(userRef);
                     if (userDoc.exists()) {
-                        console.log("Fetched user info:", userDoc.data());
                         setUserInfo(userDoc.data());
                     } else {
-                        console.log("No such document!");
+                        toast.error("User information not found.");
                     }
                 } catch (error) {
-                    console.error("Error fetching user info:", error);
                     toast.error("Failed to fetch user information.");
                 }
             }
@@ -58,15 +55,10 @@ const MyAccount = () => {
         e.preventDefault();
         if (user) {
             try {
-                console.log("Updating user info for UID:", user.uid);
                 const userRef = doc(db, "Users", user.uid);
                 await updateDoc(userRef, userInfo);
                 toast.success('User info updated successfully');
-                console.log('User info updated:', userInfo);
-                navigate(0);
-                window.location.reload(); 
             } catch (error) {
-                console.error("Error updating user info:", error);
                 toast.error('Failed to update user information.');
             }
         }
@@ -75,14 +67,12 @@ const MyAccount = () => {
     const handlePasswordSubmit = async (e) => {
         e.preventDefault();
         if (passwords.newPassword !== passwords.confirmNewPassword) {
-            console.log("New passwords do not match!");
             toast.error("New passwords do not match!");
             return;
         }
 
         if (user) {
             try {
-                console.log("Updating password for UID:", user.uid);
                 const userRef = doc(db, "Users", user.uid);
                 const userDoc = await getDoc(userRef);
 
@@ -91,16 +81,11 @@ const MyAccount = () => {
                     if (userData.password === passwords.oldPassword) {
                         await updateDoc(userRef, { password: passwords.newPassword });
                         toast.success('Password updated successfully');
-                        console.log('Password updated successfully');
-                        navigate(0);
-                        window.location.reload(); 
                     } else {
-                        console.log("Old password is incorrect");
                         toast.error("Old password is incorrect");
                     }
                 }
             } catch (error) {
-                console.error("Error updating password:", error);
                 toast.error('Failed to update password.');
             }
         }
