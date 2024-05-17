@@ -63,6 +63,7 @@ const MyAccount = () => {
                 await updateDoc(userRef, userInfo);
                 toast.success('User info updated successfully');
                 console.log('User info updated:', userInfo);
+                window.location.reload(); 
             } catch (error) {
                 console.error("Error updating user info:", error);
                 toast.error('Failed to update user information.');
@@ -90,6 +91,7 @@ const MyAccount = () => {
                         await updateDoc(userRef, { password: passwords.newPassword });
                         toast.success('Password updated successfully');
                         console.log('Password updated successfully');
+                        window.location.reload(); 
                     } else {
                         console.log("Old password is incorrect");
                         toast.error("Old password is incorrect");
