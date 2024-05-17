@@ -24,7 +24,7 @@ const Home1 = lazy(() => import('./pages/Home1'));
 
 const App = () => {
   return (
-    <Router basename="/Cheap-Ecommerce"> 
+    <Router basename="/Cheap-Ecommerce">
       <AuthProvider>
         <Navbar />
         <Chat />
