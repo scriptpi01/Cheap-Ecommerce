@@ -11,7 +11,7 @@ h1 {
     color: #4caf50;
     text-align: center;
     margin-bottom: 20px;
-    font-size: 2.5em;  /* Increase font size */
+    font-size: 1.5em;  /* Increase font size */
     font-weight: bold;  /* Make the font bold */
 }
 
@@ -32,8 +32,9 @@ h1 {
 
 .order-card h2 {
     color: #4caf50;
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .order-card p {

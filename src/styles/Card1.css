@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative; /* Ensure positioned elements like delete button are relative to the card */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transform and shadow effects on hover */
 }
 
@@ -28,6 +29,7 @@
     color: white; /* White text to contrast with the green background */
     font-size: 2rem;
     overflow: hidden; /* Ensures no overflow of content */
+    cursor: pointer; /* Cursor changes to pointer when hovering over the image */
 }
 
 .card1-details {
@@ -35,6 +37,7 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: space-around; /* Evenly distributes the space among children */
+    padding: 10px; /* Adding padding for spacing */
 }
 
 .expired, .quantity, .price {
@@ -66,7 +69,7 @@
     right: 10px;
     background: none;
     border: none;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255); /* Red color for delete button */
     font-size: 24px;
     cursor: pointer;
     width: 30px;

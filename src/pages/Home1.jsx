@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase-config';
-import { collection, query, where, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import Card1 from '../components/Card1';
 import AddProductModal from '../components/AddProductModal';
 import '../styles/Home1.css';
@@ -74,6 +74,15 @@ const Home1 = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "Products", id));
+      fetchProducts();
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+
   const handleClose = () => setShowModal(false);
 
   return (
@@ -87,6 +96,7 @@ const Home1 = () => {
           price={item.price}
           quantity={item.quantity}
           onClick={() => openModalToEdit(item)} 
+          onDelete={handleDelete}
         />
       ))}
       <div className="card1 add-new-product" onClick={openModalToAdd}>
