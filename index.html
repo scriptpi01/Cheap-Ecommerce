@@ -9,5 +9,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script type="text/javascript">
+      // Check if there is a redirect path stored in session storage
+      const redirect = sessionStorage.getItem('redirect');
+      if (redirect) {
+        // Clear the redirect path from session storage
+        sessionStorage.removeItem('redirect');
+
+        // Redirect to the original path
+        window.history.replaceState({}, document.title, redirect);
+      }
+    </script>
   </body>
 </html>
