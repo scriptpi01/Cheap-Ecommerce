@@ -2,9 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
-import Chat from './components/Chat';
 import './App.css';
-
 const Home = lazy(() => import('./pages/Home'));
 const MySales = lazy(() => import('./pages/MySales'));
 const BuyerSearchResults = lazy(() => import('./pages/BuyerSearchResults'));
