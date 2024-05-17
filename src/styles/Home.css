@@ -1,0 +1,12 @@
+.home {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
+    grid-gap: 20px; /* Space between columns */
+    
+}
+
+@media (max-width: 768px) {
+    .home {
+        grid-template-columns: repeat(2, 1fr); /* For smaller screens, use 2 columns */
+    }
+}
