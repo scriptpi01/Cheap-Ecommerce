@@ -68,7 +68,8 @@ const AddProductModal = ({ onSave, onClose, initialData }) => {
             setTimeout(() => {
                 onClose();
                 onSave();
-                window.location.reload(); // Reload the page after saving the product and closing the modal
+                navigate(0);
+                // window.location.reload(); // Reload the page after saving the product and closing the modal
             }, 2000);
         } catch (error) {
             console.error("Error saving product:", error);

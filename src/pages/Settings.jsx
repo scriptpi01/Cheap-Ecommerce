@@ -1,13 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Settings.css';  // Ensure correct path
 
 const Settings = () => {
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
+
         // Add your save logic here
 
-        // Reload the page
-        window.location.reload();
+        // Show an alert message
+        alert('Settings saved successfully!');
+
+        // Reload the page and stay on the same path
+        navigate(0);
     };
 
     return (

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase-config';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
 import Card1 from '../components/Card1';
 import AddProductModal from '../components/AddProductModal';
-import '../styles/Home1.css';
+import '../styles/Home1.css'; // Ensure the correct path
 import { AuthContext } from '../context/AuthContext';
 
 const SellerSearchResults = () => {
@@ -41,6 +41,8 @@ const SellerSearchResults = () => {
                 item.product_name.toLowerCase().includes(lowerCaseSearchTerm)
             );
             setFilteredItems(filtered);
+        } else {
+            setFilteredItems(items);
         }
     }, [searchTerm, items]);
 
@@ -59,15 +61,23 @@ const SellerSearchResults = () => {
             const productRef = doc(db, "Products", product.id);
             await updateDoc(productRef, product);
             setShowModal(false);
-            fetchProducts(); // Refetch products to reflect changes
+            // Refetch products to reflect changes
+            const productsCollectionRef = collection(db, "Products");
+            const q = query(productsCollectionRef, where("uid", "==", user.uid));
+            const querySnapshot = await getDocs(q);
+            const products = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setItems(products);
         } catch (error) {
-            // console.error("Error saving product:", error);
+            console.error("Error saving product:", error);
             alert("Product added/updated successfully!");
         }
     };
 
     return (
-        <div className="home">
+        <div className="home1">
             {filteredItems.map(item => (
                 <Card1
                     key={item.id}
