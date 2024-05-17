@@ -47,6 +47,18 @@ const Cart = () => {
 
         try {
             const user = JSON.parse(localStorage.getItem('user')); // Assuming user info is stored in localStorage
+            if (!user) {
+                toast.error("User not found. Please log in.");
+                return;
+            }
+
+            const userDoc = await getDocs(query(collection(db, 'Users'), where('username', '==', user.username)));
+            if (userDoc.empty) {
+                toast.error("User data not found.");
+                return;
+            }
+            const userInfo = userDoc.docs[0].data();
+
             const orderItems = [];
             let totalAmount = 0;
             const sellerMap = new Map();
@@ -57,40 +69,41 @@ const Cart = () => {
                 const q = query(collection(db, 'Products'), where('product_name', '==', item.name));
                 const querySnapshot = await getDocs(q);
 
-                if (!querySnapshot.empty) {
-                    const productDoc = querySnapshot.docs[0];
-                    const productData = productDoc.data();
-                    const newQuantity = productData.quantity - item.quantity;
-
-                    if (newQuantity < 0) {
-                        toast.error(`Not enough stock for ${item.name}.`);
-                        return;
-                    }
-
-                    await updateDoc(productDoc.ref, { quantity: newQuantity });
-                    console.log(`Product ${item.name} updated successfully.`);
-
-                    // Add item to orderItems array
-                    const orderItem = {
-                        product_name: item.name,
-                        price: parseFloat(item.price.substring(1)),
-                        quantity: item.quantity,
-                        total: item.totalPrice,
-                        seller: productData.username // Include seller's username directly in the item
-                    };
-
-                    orderItems.push(orderItem);
-                    totalAmount += item.totalPrice;
-
-                    // Group items by seller
-                    if (!sellerMap.has(productData.username)) {
-                        sellerMap.set(productData.username, []);
-                    }
-                    sellerMap.get(productData.username).push(orderItem);
-                } else {
+                if (querySnapshot.empty) {
                     toast.error(`Product ${item.name} not found in the database.`);
                     return;
                 }
+
+                const productDoc = querySnapshot.docs[0];
+                const productData = productDoc.data();
+                const newQuantity = productData.quantity - item.quantity;
+
+                if (newQuantity < 0) {
+                    toast.error(`Not enough stock for ${item.name}.`);
+                    return;
+                }
+
+                await updateDoc(productDoc.ref, { quantity: newQuantity });
+                console.log(`Product ${item.name} updated successfully.`);
+
+                // Add item to orderItems array
+                const orderItem = {
+                    product_name: item.name,
+                    price: parseFloat(item.price.substring(1)),
+                    quantity: item.quantity,
+                    total: item.totalPrice,
+                    seller: productData.username, // Include seller's username directly in the item
+                    address: userInfo.address // Include buyer's address
+                };
+
+                orderItems.push(orderItem);
+                totalAmount += item.totalPrice;
+
+                // Group items by seller
+                if (!sellerMap.has(productData.username)) {
+                    sellerMap.set(productData.username, []);
+                }
+                sellerMap.get(productData.username).push(orderItem);
             }
 
             // Create a new order document

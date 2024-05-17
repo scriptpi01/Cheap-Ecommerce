@@ -54,6 +54,7 @@ const MySales = () => {
                                 <div key={index} className="order-item">
                                     <p><strong>{item.product_name}</strong> - ${item.price.toFixed(2)} x {item.quantity} = ${item.total.toFixed(2)}</p>
                                     <p><strong>Buyer:</strong> {sale.buyerUsername}</p>
+                                    <p><strong>Address:</strong> {item.address}</p>
                                 </div>
                             ))}
                         </div>

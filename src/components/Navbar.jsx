@@ -47,7 +47,8 @@ const Navbar = () => {
         }
     };
 
-    const handleLogout = async () => {
+    const handleLogout = async (e) => {
+        e.preventDefault();
         await logout();
         navigate('/login');
     };
@@ -93,7 +94,7 @@ const Navbar = () => {
                                     <Link to={`/my-sales/${user.username}`} className="dropdown-item">My Sales</Link>
                                 )}
                                 <Link to="/settings" className="dropdown-item">Settings</Link>
-                                <button onClick={handleLogout} className="dropdown-item">Logout</button>
+                                <Link to="/login" onClick={handleLogout} className="dropdown-item">Logout</Link>
                             </div>
                         )}
                     </div>

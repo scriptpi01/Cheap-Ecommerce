@@ -39,7 +39,8 @@
     flex-grow: 2; /* Allows the search container to take up more space */
     display: flex;
     position: relative;
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .search-input {

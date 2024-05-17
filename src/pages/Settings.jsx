@@ -1,12 +1,19 @@
-// Settings.jsx
 import React from 'react';
 import '../styles/Settings.css';  // Ensure correct path
 
 const Settings = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Add your save logic here
+
+        // Reload the page
+        window.location.reload();
+    };
+
     return (
         <div className="settings-container">
             <h1>Settings</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Notification Settings</label>
                     <select>
