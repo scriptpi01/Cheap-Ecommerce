@@ -64,6 +64,7 @@ const MyAccount = () => {
                 toast.success('User info updated successfully');
                 console.log('User info updated:', userInfo);
                 navigate(0);
+                window.location.reload(); 
             } catch (error) {
                 console.error("Error updating user info:", error);
                 toast.error('Failed to update user information.');
@@ -92,6 +93,7 @@ const MyAccount = () => {
                         toast.success('Password updated successfully');
                         console.log('Password updated successfully');
                         navigate(0);
+                        window.location.reload(); 
                     } else {
                         console.log("Old password is incorrect");
                         toast.error("Old password is incorrect");

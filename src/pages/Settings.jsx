@@ -15,6 +15,7 @@ const Settings = () => {
 
         // Reload the page and stay on the same path
         navigate(0);
+        window.location.reload(); 
     };
 
     return (
