@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Settings.css';  // Ensure correct path
+import { reload } from 'firebase/auth';
 
 const Settings = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Settings = () => {
 
         // Reload the page and stay on the same path
         navigate(0);
+        window.location.reload();
     };
 
     return (
